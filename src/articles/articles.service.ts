@@ -1,0 +1,36 @@
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+
+import { CreateArticleDto } from './dto/create-article.dto';
+import { UpdateArticleDto } from './dto/update-article.dto';
+
+@Injectable()
+export class ArticlesService extends PrismaClient implements OnModuleInit {
+  
+  private readonly logger = new Logger('ArticlesService');
+
+  async onModuleInit() {
+    this.$connect();
+    this.logger.log('Connected to the database');
+  }
+
+  create(createArticleDto: CreateArticleDto) {
+    return 'This action adds a new article';
+  }
+
+  findAll() {
+    return `This action returns all articles`;
+  }
+
+  findOne(id: number) {
+    return `This action returns a #${id} article`;
+  }
+
+  update(id: number, updateArticleDto: UpdateArticleDto) {
+    return `This action updates a #${id} article`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} article`;
+  }
+}
