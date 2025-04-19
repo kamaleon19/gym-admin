@@ -1,7 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
+
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Controller('articles')
 export class ArticlesController {
@@ -13,12 +16,17 @@ export class ArticlesController {
   }
 
   @Get()
-  findAll() {
-    return this.articlesService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.articlesService.findAll(paginationDto);
+  }
+
+  @Get('search')
+  findByTitle(@Query('title',) title: string) {
+    return this.articlesService.findByTitle(title);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseIntPipe) id: string) {
     return this.articlesService.findOne(+id);
   }
 
