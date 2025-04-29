@@ -18,3 +18,16 @@ model Articles {
 
   @@index([status])
 }
+
+model Expenses {
+  id        Int       @id @default(autoincrement())
+  name      String
+  type      String
+  import    Int
+  status    String    @default("PENDING")
+  createdAt DateTime  @db.Date @default(now())
+  updatedAt DateTime? @db.Date @updatedAt
+  paidAt    DateTime? @db.Date @updatedAt
+
+  @@index([status])
+}

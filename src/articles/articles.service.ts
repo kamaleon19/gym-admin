@@ -29,7 +29,7 @@ export class ArticlesService {
       return {
         status: 201,
         message: 'Article created successfully',
-        article,
+        data: article,
       };
       
     } catch (error) {
@@ -56,6 +56,7 @@ export class ArticlesService {
 
     // Retornamos los registros.
     return {
+      status: 200,
       data: articles,
       meta: {
         totalArticles,
@@ -81,14 +82,16 @@ export class ArticlesService {
 
     return {
       status: 200,
-      articles,
+      data: articles,
     }
 
   }
 
   async findOne(id: number) {
     
-    const article = await this.prisma.articles.findUnique({ where: { id } });
+    const article = await this.prisma.articles.findUnique({ 
+      where: { id } 
+    });
 
     if(!article) {
       throw new NotFoundException(`Article with id ${id} not found`);
@@ -96,8 +99,7 @@ export class ArticlesService {
 
     return {
       status: 200,
-      message: 'Article retrieved successfully',
-      article,
+      data: article,
     };
   }
 
@@ -112,7 +114,7 @@ export class ArticlesService {
       return {
         status: 200,
         message: 'Article updated successfully',
-        article,
+        data: article,
       };
       
     } catch (error) {
