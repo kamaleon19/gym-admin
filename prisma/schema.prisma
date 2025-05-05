@@ -25,9 +25,22 @@ model Expenses {
   type      String
   import    Int
   status    String    @default("PENDING")
-  createdAt DateTime  @db.Date @default(now())
-  updatedAt DateTime? @db.Date @updatedAt
-  paidAt    DateTime? @db.Date @updatedAt
+  createdAt DateTime  @default(now()) @db.Date
+  updatedAt DateTime? @updatedAt @db.Date
+  paidAt    DateTime? @updatedAt @db.Date
+
+  @@index([status])
+}
+
+model Users {
+  id        String    @id @default(uuid())
+  username  String    @unique
+  email     String    @unique
+  password  String
+  rol       String[]    @default(["user"])
+  status    Boolean   @default(true)
+  createdAt DateTime  @default(now()) @db.Date
+  updatedAt DateTime? @updatedAt @db.Date
 
   @@index([status])
 }
