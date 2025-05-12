@@ -37,10 +37,24 @@ model Users {
   username  String    @unique
   email     String    @unique
   password  String
-  rol       String[]    @default(["user"])
+  rol       String[]  @default(["user"])
   status    Boolean   @default(true)
   createdAt DateTime  @default(now()) @db.Date
   updatedAt DateTime? @updatedAt @db.Date
+
+  @@index([status])
+}
+
+model Partners {
+  id             Int       @id @default(autoincrement())
+  name           String
+  phone          String
+  code           String    @unique
+  dni            String    @unique
+  status         Boolean   @default(true)
+  createdAt      DateTime  @default(now()) @db.Date
+  renewalDate    DateTime? @updatedAt @db.Date
+  expirationDate DateTime? @updatedAt @db.Date
 
   @@index([status])
 }
