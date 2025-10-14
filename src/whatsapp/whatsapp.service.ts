@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Partners } from '@prisma/client';
-import { PrismaService } from 'prisma/prisma.service';
+
 import { Twilio } from 'twilio';
 
 @Injectable()
